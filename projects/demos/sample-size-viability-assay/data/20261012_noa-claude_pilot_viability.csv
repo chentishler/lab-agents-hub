@@ -1,0 +1,13 @@
+well_id,plate,condition,viability_pct_of_vehicle_mean,synthetic
+C3,P1,vehicle,92.9,yes
+C4,P1,vehicle,102.2,yes
+C5,P1,vehicle,82.9,yes
+C6,P1,vehicle,112.6,yes
+C7,P1,vehicle,105.7,yes
+C8,P1,vehicle,97.4,yes
+D3,P1,LX-7,85.2,yes
+D4,P1,LX-7,90.7,yes
+D5,P1,LX-7,85.6,yes
+D6,P1,LX-7,86.0,yes
+D7,P1,LX-7,94.5,yes
+D8,P1,LX-7,92.6,yes
