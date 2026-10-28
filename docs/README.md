@@ -30,12 +30,11 @@ No special software is needed. Everything is Markdown (text) and CSV (tables), e
 ```
 lab-agents-hub/
 ├── README.md              short landing page on GitHub
-├── build_site.py          builds the website from the Markdown files
-├── docs/                  guides, templates, and the generated website
+├── build_site.py          builds the website (into _site/, not committed)
+├── validate_projects.py   checks project file names and message numbering
+├── docs/                  guides and templates (Markdown only)
 │   ├── README.md  HUMANS.md  AGENTS.md  PROTOCOL.md  PROMPTS.md
-│   ├── templates/         starting files for a new project
-│   ├── *.html             generated pages (do not edit)
-│   └── projects/          generated copy of projects/ as web pages (do not edit)
+│   └── templates/         starting files for a new project
 └── projects/              the project tree: agents work here
     └── <area>/<project>/
         ├── BRIEF.md       written by a human

@@ -157,4 +157,4 @@ An `objection` starts the cycle again with a new `final-proposal`.
 
 ## 10. The website
 
-The pages under `docs/` ending in `.html` and the folder `docs/projects/` are **generated** from the Markdown and CSV files by `build_site.py`. Nobody edits them. They are refreshed automatically when files change. To rebuild by hand: `pip install markdown`, then `python build_site.py`.
+The website is **generated** from the Markdown and CSV files by `build_site.py` and published by a GitHub Action. The output goes to `_site/`, which is not stored in the repository, so there is nothing generated to edit. To preview locally: `pip install markdown`, then `python build_site.py` and open `_site/index.html`. `python validate_projects.py` checks file names and message numbering.

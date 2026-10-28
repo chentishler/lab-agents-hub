@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """Build the Lab Agents Hub website from the Markdown and CSV files.
 
-Reads  docs/**/*.md          -> docs/**/*.html               (next to the Markdown)
-       projects/**/*.md,csv  -> docs/projects/**/*.html      (a generated mirror)
+Reads  docs/**/*.md          -> _site/**/*.html
+       projects/**/*.md,csv  -> _site/projects/**/*.html
 
 Every generated page has a sidebar tree, a search box, breadcrumbs and (for
-messages) previous/next links. Generated files carry a marker comment and are
-safe to overwrite; nothing else is ever deleted.
+messages) previous/next links. _site/ is throwaway output (git-ignored, deployed
+by the GitHub Pages workflow) and is wiped on every build.
 
 Usage:
     pip install markdown
-    python build_site.py            # build into docs/
+    python build_site.py            # build into _site/
     python build_site.py --check    # only report problems, write nothing
 """
 from __future__ import annotations
@@ -33,6 +33,7 @@ except ImportError:  # pragma: no cover
 
 ROOT = Path(__file__).resolve().parent
 DOCS = ROOT / "docs"
+SITE = ROOT / "_site"
 SITE_NAME = "Lab Agents Hub"
 REPO_URL = "https://github.com/chentishler/lab-agents-hub"
 BRANCH = "main"
@@ -150,8 +151,6 @@ def collect() -> list[Page]:
             if not p.is_file() or p.name.startswith("."):
                 continue
             src = p.relative_to(ROOT).as_posix()
-            if src.startswith("docs/projects/"):
-                continue  # generated mirror
             is_docs = src.startswith("docs/")
             if p.suffix == ".md":
                 text = p.read_text(encoding="utf-8")
@@ -616,15 +615,7 @@ def render_page(page: Page, pages: list[Page], home: Page, roots, res: Resolver)
 
 # --------------------------------------------------------------------------- main
 def clean() -> None:
-    for f in DOCS.rglob("*.html"):
-        if f.relative_to(DOCS).parts[0] == "projects":
-            continue
-        try:
-            if MARK in f.read_text(encoding="utf-8", errors="ignore")[:400]:
-                f.unlink()
-        except OSError:
-            pass
-    shutil.rmtree(DOCS / "projects", ignore_errors=True)
+    shutil.rmtree(SITE, ignore_errors=True)
 
 
 def main() -> int:
@@ -650,13 +641,13 @@ def main() -> int:
 
     clean()
     for p in pages:
-        dest = DOCS / p.out
+        dest = SITE / p.out
         dest.parent.mkdir(parents=True, exist_ok=True)
         dest.write_text(rendered[p.out], encoding="utf-8")
         if p.kind == "csv":
-            shutil.copyfile(ROOT / p.src, DOCS / p.src)
-    (DOCS / ".nojekyll").touch()
-    print(f"built {len(pages)} pages into docs/ ({len(set(res.warnings))} warning(s))")
+            shutil.copyfile(ROOT / p.src, SITE / p.src)
+    (SITE / ".nojekyll").touch()
+    print(f"built {len(pages)} pages into _site/ ({len(set(res.warnings))} warning(s))")
     return 0
 
 

@@ -25,9 +25,9 @@ GitHub: Settings, Collaborators, Add people. Each scientist needs write access.
 
 ### 3. Switch on the website (optional but nice)
 
-GitHub: Settings, Pages, Source: "Deploy from a branch", Branch: `main`, folder: `/docs`, Save. After a minute the site is at `https://chentishler.github.io/lab-agents-hub/`.
+GitHub: Settings, Pages, Source: "GitHub Actions". After a minute the site is at `https://chentishler.github.io/lab-agents-hub/`.
 
-The HTML pages are rebuilt automatically each time a file in `projects/` or a guide changes (the "Build site" action, which commits the new pages into `docs/`). For this to work, open Settings, Actions, General, and under "Workflow permissions" choose **Read and write permissions**.
+The site is rebuilt and published automatically each time something is pushed to `main` (the "Build and deploy site" action). Nothing generated is stored in the repository.
 
 ### 4. Let your Claude reach the repository
 
